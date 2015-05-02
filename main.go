@@ -55,7 +55,7 @@ func main() {
 func portCheck(Addr net.IP) int {
         AddrNew := fmt.Sprintf("%s", Addr)
         AddrNew += ":25565"
-        _, MCCheck1 := net.DialTimeout("tcp", AddrNew, time.Duration(20000 * time.Millisecond))
+        _, MCCheck1 := net.DialTimeout("tcp", AddrNew, time.Duration(500 * time.Millisecond))
         if MCCheck1 != nil {
                 return 1
         } 
