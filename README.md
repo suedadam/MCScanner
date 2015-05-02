@@ -10,7 +10,6 @@ Compiling it easy!
 
 Grab the dependencies:
 ```bash
-$ go get github.com/anvie/port-scanner
 $ go get github.com/geNAZt/minecraft-status/data
 $ go get github.com/geNAZt/minecraft-status/protocol
 ```
