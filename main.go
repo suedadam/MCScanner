@@ -5,8 +5,8 @@ import (
         "log"
         "net"
         "os"
+        "time"
         "encoding/json"
-        "github.com/anvie/port-scanner"
         "github.com/geNAZt/minecraft-status/data"
         "github.com/geNAZt/minecraft-status/protocol"
 )
@@ -21,10 +21,8 @@ func main() {
                 log.Fatal(err)
         }
         for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
-                ps := portscanner.NewPortScanner(ip.String())
-                MCCheck1 := ps.GetOpenedPort(25565, 25565)
-
-                if (len(MCCheck1) != 0) {
+                MCCheck1 := portCheck(ip)
+                if (MCCheck1 == 0) {
 
                         conn, err := protocol.NewNetClient(ip.String())
                         if err != nil {
@@ -54,7 +52,15 @@ func main() {
                 }
         }       
 }
-
+func portCheck(Addr net.IP) int {
+        AddrNew := fmt.Sprintf("%s", Addr)
+        AddrNew += ":25565"
+        _, MCCheck1 := net.DialTimeout("tcp", AddrNew, time.Duration(20000 * time.Millisecond))
+        if MCCheck1 != nil {
+                return 1
+        } 
+        return 0
+}
 func inc(ip net.IP) {
         for j := len(ip)-1; j>=0; j-- {
                 ip[j]++
