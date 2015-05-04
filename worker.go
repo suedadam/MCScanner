@@ -53,7 +53,6 @@ func (p *pool) work(end chan bool) {
 // Closes the pool. Should be sent when you're done adding IPs to
 // be checked. Blocks until the pool is finished working.
 func (p *pool) end() {
-	println("closing")
 	for _, end := range p.endings {
 		end <- true
 	}
