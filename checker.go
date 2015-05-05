@@ -5,6 +5,7 @@ import (
 	"github.com/geNAZt/minecraft-status/data"
 	"github.com/geNAZt/minecraft-status/protocol"
 	"net"
+	"fmt"
 	"time"
 )
 
@@ -27,9 +28,14 @@ func isMinecraft(ip string) bool {
 	if err != nil {
 		return false
 	}
-
-	err = json.Unmarshal([]byte(statusPacket.(protocol.StatusResponse).Data), &data.Status{})
-	return err != nil
+	status := &data.Status{}
+	errJson := json.Unmarshal([]byte(statusPacket.(protocol.StatusResponse).Data), status)
+	if errJson != nil {
+		return false
+	}
+	// ScanRes := fmt.Sprintf("%s:%s\n", ip.String(), status.Description)
+	fmt.Printf("%s:%s\n", ip, status.Description)
+	return true
 }
 
 func portOpen(addr string) bool {

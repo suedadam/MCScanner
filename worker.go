@@ -1,13 +1,10 @@
 package main
 
-import (
-	"fmt"
-)
-
 type pool struct {
 	checks  chan string
 	workers int
 	ending  chan bool
+	MOTD	chan string
 }
 
 func newPool(workers int) *pool {
@@ -15,6 +12,7 @@ func newPool(workers int) *pool {
 		// Buffer the channel with 10x as many IPs as workers.
 		checks:  make(chan string, workers*10),
 		ending:  make(chan bool, workers),
+		MOTD:	make(chan string, workers*10),
 		workers: workers,
 	}
 	p.spawn()
@@ -38,7 +36,6 @@ func (p *pool) add(ip string) {
 func (p *pool) work() {
 	for ip := range p.checks {
 		if isMinecraft(ip) {
-			fmt.Println(ip)
 		}
 	}
 
