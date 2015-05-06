@@ -11,7 +11,7 @@ func newPool(workers int) *pool {
 	p := &pool{
 		// Buffer the channel with 10x as many IPs as workers.
 		checks:  make(chan string, workers*10),
-		ending:  make(chan bool, workers),
+		ending:  make(chan bool),
 		MOTD:	make(chan string, workers*10),
 		workers: workers,
 	}
