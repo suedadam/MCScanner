@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"runtime"
 	"os"
 )
+
+var cpus = runtime.NumCPU()
 
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Printf("Usage: %s <CIDR>\n", os.Args[0])
 		os.Exit(2)
 	}
+	runtime.GOMAXPROCS(cpus)
 	p := newPool(1000)
 
 	ip, ipnet, err := net.ParseCIDR(os.Args[1])
