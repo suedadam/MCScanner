@@ -5,7 +5,7 @@ import (
 	"github.com/geNAZt/minecraft-status/data"
 	"github.com/geNAZt/minecraft-status/protocol"
 	"net"
-	"fmt"
+	"log"
 	"time"
 )
 
@@ -34,7 +34,7 @@ func isMinecraft(ip string) bool {
 		return false
 	}
 	// ScanRes := fmt.Sprintf("%s:%s\n", ip.String(), status.Description)
-	fmt.Printf("%s:%s\n", ip, status.Description)
+	log.Printf("%s:%s\n", ip, status.Description)
 	return true
 }
 
