@@ -1,5 +1,10 @@
 package main
 
+import (
+	"os"
+	"strconv"
+)
+
 type pool struct {
 	checks  chan string
 	workers int
@@ -35,7 +40,13 @@ func (p *pool) add(ip string) {
 // Listens from and works on the checks.
 func (p *pool) work() {
 	for ip := range p.checks {
-		if isMinecraft(ip) {
+		argports := os.Args[2]
+		argporte := os.Args[3]
+		ports, _ := strconv.Atoi(argports)
+		porte, _ := strconv.Atoi(argporte)
+		for i := ports; i <= porte; i++ {
+			if isMinecraft(ip, i) {
+			}
 		}
 	}
 
