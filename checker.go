@@ -2,7 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/suedadam/minecraft-status"
+	"github.com/suedadam/minecraft-status/data"
+	"github.com/suedadam/minecraft-status/protocol"
 	"net"
 	"log"
 	"strconv"
